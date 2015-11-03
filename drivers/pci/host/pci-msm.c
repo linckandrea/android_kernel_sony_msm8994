@@ -3518,7 +3518,7 @@ int msm_pcie_enable(struct msm_pcie_dev_t *dev, u32 options)
 		dev->rc_idx, retries);
 
 	if (pcie_phy_is_ready(dev))
-		PCIE_INFO(dev, "PCIe RC%d PHY is ready!\n", dev->rc_idx);
+		PCIE_DBG(dev, "PCIe RC%d PHY is ready!\n", dev->rc_idx);
 	else {
 		PCIE_ERR(dev, "PCIe PHY RC%d failed to come up!\n",
 			dev->rc_idx);
@@ -3532,7 +3532,7 @@ int msm_pcie_enable(struct msm_pcie_dev_t *dev, u32 options)
 
 	/* de-assert PCIe reset link to bring EP out of reset */
 
-	PCIE_INFO(dev, "PCIe: Release the reset of endpoint of RC%d.\n",
+	PCIE_DBG(dev, "PCIe: Release the reset of endpoint of RC%d.\n",
 		dev->rc_idx);
 	gpio_set_value(dev->gpio[MSM_PCIE_GPIO_PERST].num,
 				1 - dev->gpio[MSM_PCIE_GPIO_PERST].on);
@@ -5478,7 +5478,7 @@ int msm_pcie_pm_control(enum msm_pcie_pm_opt pm_opt, u32 busnr, void *user,
 			"User of RC%d requests to resume the link\n", rc_idx);
 		if (msm_pcie_dev[rc_idx].link_status !=
 					MSM_PCIE_LINK_DISABLED) {
-			PCIE_ERR(&msm_pcie_dev[rc_idx],
+			PCIE_DBG(&msm_pcie_dev[rc_idx],
 				"PCIe: RC%d: requested to resume when link is not disabled:%d. Number of active EP(s): %d\n",
 				rc_idx, msm_pcie_dev[rc_idx].link_status,
 				msm_pcie_dev[rc_idx].num_active_ep);
