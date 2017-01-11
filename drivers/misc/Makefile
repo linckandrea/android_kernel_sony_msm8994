@@ -82,3 +82,4 @@ obj-$(CONFIG_AD7146) += ad7146.o
 obj-$(CONFIG_ONESEG_TUNER_SMTVJ19X) += oneseg_tuner_drv.o
 obj-$(CONFIG_ISDBT_TUNER_SMTEJ12X) += isdbt_tuner_drv.o
 obj-$(CONFIG_BCM_WLAN_RAMDUMP) += bcm_wlan_ramdump.o
+obj-$(CONFIG_UID_SYS_STATS) += uid_sys_stats.o
