@@ -463,6 +463,7 @@ static int32_t msm_sensor_get_power_down_settings(void *setting,
 	if (!pd) {
 		pr_err("failed: no memory power_setting %pK", pd);
 		return -EFAULT;
+	}
 
 	if (slave_info->power_setting_array.power_down_setting) {
 #ifdef CONFIG_COMPAT
@@ -529,6 +530,7 @@ static int32_t msm_sensor_get_power_up_settings(void *setting,
 	if (!pu) {
 		pr_err("failed: no memory power_setting %pK", pu);
 		return -ENOMEM;
+	}
 
 #ifdef CONFIG_COMPAT
 	if (is_compat_task()) {
@@ -647,6 +649,7 @@ int32_t msm_sensor_driver_probe(void *setting,
 	if (!slave_info) {
 		pr_err("failed: no memory slave_info %pK", slave_info);
 		return -ENOMEM;
+	}
 
 #ifdef CONFIG_COMPAT
 	if (is_compat_task()) {
@@ -806,6 +809,7 @@ int32_t msm_sensor_driver_probe(void *setting,
 	if (!camera_info) {
 		pr_err("failed: no memory slave_info %pK", camera_info);
 		goto free_slave_info;
+	}
 
 	s_ctrl->sensordata->slave_info = camera_info;
 
@@ -1226,6 +1230,7 @@ static int32_t msm_sensor_driver_platform_probe(struct platform_device *pdev)
 	if (!s_ctrl) {
 		pr_err("failed: no memory s_ctrl %pK", s_ctrl);
 		return -ENOMEM;
+	}
 
 	platform_set_drvdata(pdev, s_ctrl);
 
@@ -1270,6 +1275,7 @@ static int32_t msm_sensor_driver_i2c_probe(struct i2c_client *client,
 	if (!s_ctrl) {
 		pr_err("failed: no memory s_ctrl %pK", s_ctrl);
 		return -ENOMEM;
+	}
 
 	i2c_set_clientdata(client, s_ctrl);
 
