@@ -737,13 +737,8 @@ void snd_timer_interrupt(struct snd_timer * timer, unsigned long ticks_left)
 			ti->cticks = ti->ticks;
 		} else {
 			ti->flags &= ~SNDRV_TIMER_IFLG_RUNNING;
-<<<<<<< HEAD
-			if (--timer->running)
-				list_del_init(&ti->active_list);
-=======
 			--timer->running;
 			list_del_init(&ti->active_list);
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		}
 		if ((timer->hw.flags & SNDRV_TIMER_HW_TASKLET) ||
 		    (ti->flags & SNDRV_TIMER_IFLG_FAST))
