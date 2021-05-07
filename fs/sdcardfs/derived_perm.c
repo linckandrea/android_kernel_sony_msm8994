@@ -124,7 +124,6 @@ void get_derived_permission_new(struct dentry *parent, struct dentry *dentry,
 			info->data->perm = PERM_ANDROID_MEDIA;
 		} else {
 			set_top(info, parent_info);
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		}
 		break;
 	case PERM_ANDROID_OBB:

@@ -27,6 +27,7 @@
 #include <linux/sysrq.h>
 #include <linux/init.h>
 #include <linux/nmi.h>
+#include <linux/crash_notes.h>
 #include <linux/console.h>
 
 #define CREATE_TRACE_POINTS
