@@ -2129,11 +2129,7 @@ int expand_upwards(struct vm_area_struct *vma, unsigned long address)
 
 	/* Guard against exceeding limits of the address space. */
 	address &= PAGE_MASK;
-<<<<<<< HEAD
-	if (address >= TASK_SIZE)
-=======
 	if (address >= (TASK_SIZE & PAGE_MASK))
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		return -ENOMEM;
 	address += PAGE_SIZE;
 
