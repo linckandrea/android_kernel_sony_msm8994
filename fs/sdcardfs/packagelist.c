@@ -645,10 +645,7 @@ static struct config_item *extension_details_make_item(struct config_group *grou
 		return ERR_PTR(-ENOMEM);
 	}
 	qstr_init(&extension_details->name, tmp);
-<<<<<<< HEAD
-=======
 	extension_details->num = extensions_value->num;
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	ret = insert_ext_gid_entry(&extension_details->name, extensions_value->num);
 
 	if (ret) {

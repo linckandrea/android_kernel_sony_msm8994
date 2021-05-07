@@ -234,7 +234,6 @@ static int propagate_one(struct mount *m)
 		/* beginning of peer group among the slaves? */
 		if (IS_MNT_SHARED(m))
 			type |= CL_MAKE_SHARED;
-<<<<<<< HEAD
 	}
 		
 	/* Notice when we are propagating across user namespaces */
@@ -251,24 +250,6 @@ static int propagate_one(struct mount *m)
 		SET_MNT_MARK(m->mnt_master);
 		br_write_unlock(&vfsmount_lock);
 	}
-=======
-	}
-		
-	/* Notice when we are propagating across user namespaces */
-	if (m->mnt_ns->user_ns != user_ns)
-		type |= CL_UNPRIVILEGED;
-	child = copy_tree(last_source, last_source->mnt.mnt_root, type);
-	if (IS_ERR(child))
-		return PTR_ERR(child);
-	mnt_set_mountpoint(m, mp, child);
-	last_dest = m;
-	last_source = child;
-	if (m->mnt_master != dest_master) {
-		br_write_lock(&vfsmount_lock);
-		SET_MNT_MARK(m->mnt_master);
-		br_write_unlock(&vfsmount_lock);
-	}
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	list_add_tail(&child->mnt_hash, list);
 	return 0;
 }
@@ -429,11 +410,6 @@ static struct mount *next_descendent(struct mount *root, struct mount *cur)
 	if (!IS_MNT_NEW(cur) && !list_empty(&cur->mnt_slave_list))
 		return first_slave(cur);
 	do {
-<<<<<<< HEAD
-		if (cur->mnt_slave.next != &cur->mnt_master->mnt_slave_list)
-			return next_slave(cur);
-		cur = cur->mnt_master;
-=======
 		struct mount *master = cur->mnt_master;
 
 		if (!master || cur->mnt_slave.next != &master->mnt_slave_list) {
@@ -442,7 +418,6 @@ static struct mount *next_descendent(struct mount *root, struct mount *cur)
 			return (next == root) ? NULL : next;
 		}
 		cur = master;
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	} while (cur != root);
 	return NULL;
 }
