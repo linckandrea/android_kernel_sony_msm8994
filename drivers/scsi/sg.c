@@ -783,11 +783,7 @@ sg_common_write(Sg_fd * sfp, Sg_request * srp,
 		sg_finish_rem_req(srp);
 		return k;	/* probably out of space --> ENOMEM */
 	}
-<<<<<<< HEAD
-	if (sdp->detached) {
-=======
 	if (atomic_read(&sdp->detaching)) {
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		if (srp->bio) {
 			if (srp->rq->cmd != srp->rq->__cmd)
 				kfree(srp->rq->cmd);
@@ -1714,12 +1710,9 @@ sg_start_req(Sg_request *srp, unsigned char *cmd)
 	}
 
 	blk_rq_set_block_pc(rq);
-<<<<<<< HEAD
-=======
 
 	if (hp->cmd_len > BLK_MAX_CDB)
 		rq->cmd = long_cmdp;
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	memcpy(rq->cmd, cmd, hp->cmd_len);
 	rq->cmd_len = hp->cmd_len;
 
@@ -1759,11 +1752,7 @@ sg_start_req(Sg_request *srp, unsigned char *cmd)
 			md->from_user = 0;
 	}
 
-<<<<<<< HEAD
-	if (unlikely(iov_count > MAX_UIOVEC))
-=======
 	if (unlikely(iov_count > UIO_MAXIOV))
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		return -EINVAL;
 
 	if (iov_count) {

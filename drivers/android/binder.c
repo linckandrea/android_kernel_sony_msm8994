@@ -47,11 +47,6 @@
 #include <uapi/linux/android/binder.h>
 #include "binder_trace.h"
 
-<<<<<<< HEAD
-=======
-#define BINDER_MIN_ALLOC (1 * PAGE_SIZE)
-
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 static HLIST_HEAD(binder_devices);
 
 static struct dentry *binder_debugfs_dir_entry_root;
@@ -325,11 +320,7 @@ struct binder_buffer {
 	size_t data_size;
 	size_t offsets_size;
 	size_t extra_buffers_size;
-<<<<<<< HEAD
-	uint8_t data[0];
-=======
 	void *data;
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 };
 
 enum binder_deferred_state {
@@ -2176,11 +2167,7 @@ static void binder_transaction(struct binder_proc *proc,
 	if (!IS_ALIGNED(extra_buffers_size, sizeof(u64))) {
 		binder_user_error("%d:%d got transaction with unaligned buffers size, %lld\n",
 				  proc->pid, thread->pid,
-<<<<<<< HEAD
-				  (u64)extra_buffers_size);
-=======
 				  extra_buffers_size);
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		return_error = BR_FAILED_REPLY;
 		goto err_bad_offset;
 	}
@@ -2338,12 +2325,7 @@ static void binder_transaction(struct binder_proc *proc,
 	if (target_wait) {
 		if (reply || !(t->flags & TF_ONE_WAY)) {
 			wake_up_interruptible_sync(target_wait);
-<<<<<<< HEAD
-		}
-		else {
-=======
 		} else {
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 			wake_up_interruptible(target_wait);
 		}
 	}
@@ -3444,13 +3426,9 @@ static long binder_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 			ret = -EINVAL;
 			goto err;
 		}
-<<<<<<< HEAD
-		if (put_user_preempt_disabled(BINDER_CURRENT_PROTOCOL_VERSION, &ver->protocol_version)) {
-=======
 
 		if (put_user_preempt_disabled(BINDER_CURRENT_PROTOCOL_VERSION,
 			     &ver->protocol_version)) {
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 			ret = -EINVAL;
 			goto err;
 		}
@@ -3573,11 +3551,6 @@ static int binder_mmap(struct file *filp, struct vm_area_struct *vma)
 	vma->vm_ops = &binder_vm_ops;
 	vma->vm_private_data = proc;
 
-<<<<<<< HEAD
-	/* binder_update_page_range assumes preemption is disabled */
-	preempt_disable();
-	ret = binder_update_page_range(proc, 1, proc->buffer, proc->buffer + PAGE_SIZE, vma);
-=======
 	buffer = kzalloc(sizeof(*buffer), GFP_KERNEL);
 	if (!buffer) {
 		ret = -ENOMEM;
@@ -3589,7 +3562,6 @@ static int binder_mmap(struct file *filp, struct vm_area_struct *vma)
 	preempt_disable();
 	ret = __binder_update_page_range(proc, 1, proc->buffer,
 					 proc->buffer + BINDER_MIN_ALLOC, vma);
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	preempt_enable_no_resched();
 	if (ret) {
 		ret = -ENOMEM;
@@ -3647,10 +3619,7 @@ static int binder_open(struct inode *nodp, struct file *filp)
 	binder_dev = container_of(filp->private_data, struct binder_device,
 				  miscdev);
 	proc->context = &binder_dev->context;
-<<<<<<< HEAD
-=======
 	INIT_LIST_HEAD(&proc->buffers);
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 	binder_lock(proc->context, __func__);
 
@@ -4309,21 +4278,10 @@ static int binder_state_show(struct seq_file *m, void *unused)
 		if (do_lock)
 			binder_unlock(context, __func__);
 	}
-<<<<<<< HEAD
-
 	hlist_for_each_entry(device, &binder_devices, hlist) {
 		context = &device->context;
 		if (do_lock)
 			binder_lock(context, __func__);
-
-=======
-
-	hlist_for_each_entry(device, &binder_devices, hlist) {
-		context = &device->context;
-		if (do_lock)
-			binder_lock(context, __func__);
-
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		hlist_for_each_entry(proc, &context->binder_procs, proc_node)
 			print_binder_proc(m, proc, 1);
 		if (do_lock)
