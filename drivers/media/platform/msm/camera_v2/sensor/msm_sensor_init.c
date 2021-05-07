@@ -170,6 +170,7 @@ static int __init msm_sensor_init_module(void)
 	if (!s_init) {
 		pr_err("failed: no memory s_init %pK", NULL);
 		return -ENOMEM;
+	}
 
 	CDBG("MSM_SENSOR_INIT_MODULE %pK", NULL);
 
