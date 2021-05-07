@@ -630,12 +630,21 @@ config MSM_CORE_CTL_HELPER
 	  max online CPUs from userspace.
 
 config MSM_CORE_CTL
+<<<<<<< HEAD
         select MSM_CORE_CTL_HELPER
         tristate "Core control driver to dynamically hotplug CPUs"
         help
           Support for dynamicatlly hotplugging CPUs from kernel based on
           current system load and state. It also supports limiting min and
           max online CPUs from userspace.
+=======
+	select MSM_CORE_CTL_HELPER
+	tristate "Core control driver to dynamically hotplug CPUs"
+	help
+	  Support for dynamicatlly hotplugging CPUs from kernel based on
+	  current system load and state. It also supports limiting min and
+	  max online CPUs from userspace.
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 config MSM_PERFORMANCE
 	tristate "Core control driver to support userspace hotplug requests"

@@ -223,12 +223,27 @@ static void msm_restart_prepare(const char *cmd)
 
 	qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
 
+<<<<<<< HEAD
 	if (in_panic) {
 		u32 prev_reason;
 		prev_reason = __raw_readl(restart_reason);
 		if (prev_reason != 0xABADF00D)
 			__raw_writel(0xC0DEDEAD, restart_reason);
 	} else if (cmd != NULL) {
+=======
+#ifdef CONFIG_MSM_PRESERVE_MEM
+	need_warm_reset = true;
+#endif
+
+	/* Hard reset the PMIC unless memory contents must be maintained. */
+	if (need_warm_reset) {
+		qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
+	} else {
+		qpnp_pon_system_pwr_off(PON_POWER_OFF_HARD_RESET);
+	}
+
+	if (cmd != NULL) {
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		if (!strncmp(cmd, "bootloader", 10)) {
 			qpnp_pon_set_restart_reason(
 				PON_RESTART_REASON_BOOTLOADER);
@@ -257,6 +272,7 @@ static void msm_restart_prepare(const char *cmd)
 		} else if (!strncmp(cmd, "edl", 3)) {
 			enable_emergency_dload_mode();
 		} else {
+			qpnp_pon_set_restart_reason(PON_RESTART_REASON_UNKNOWN);
 			__raw_writel(0x77665501, restart_reason);
 		}
 	} else {
