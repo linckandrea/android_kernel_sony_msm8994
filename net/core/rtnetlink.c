@@ -900,10 +900,6 @@ static int rtnl_fill_ifinfo(struct sk_buff *skb, struct net_device *dev,
 
 	if (1) {
 		struct rtnl_link_ifmap map;
-<<<<<<< HEAD
-=======
-
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		memset(&map, 0, sizeof(map));
 		map.mem_start   = dev->mem_start;
 		map.mem_end     = dev->mem_end;
