@@ -7236,11 +7236,7 @@ SYSCALL_DEFINE5(perf_event_open,
 		 * See perf_event_ctx_lock() for comments on the details
 		 * of swizzling perf_event::ctx.
 		 */
-<<<<<<< HEAD
-		mutex_lock_double(&gctx->mutex, &ctx->mutex);
-=======
 		perf_remove_from_context(group_leader, false);
->>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 		/*
 		 * Removing from the context ends up with disabled
