@@ -15,11 +15,6 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-/*
- * NOTE: This file has been modified by Sony Mobile Communications Inc.
- * Modifications are Copyright (c) 2015 Sony Mobile Communications Inc,
- * and licensed under the license of the file.
- */
 
 #define pr_fmt(fmt) "ashmem: " fmt
 
@@ -767,7 +762,7 @@ int get_ashmem_file(int fd, struct file **filp, struct file **vm_file,
 		pr_err("ashmem: %s: requested data from file "
 			"descriptor that doesn't exist.\n", __func__);
 	} else {
-		char currtask_name[FIELD_SIZEOF(struct task_struct, comm) + 1];
+		char currtask_name[TASK_COMM_LEN];
 		pr_debug("filp %p rdev %d pid %u(%s) file %p(%ld)"
 			" dev id: %d\n", filp,
 			file->f_dentry->d_inode->i_rdev,
@@ -792,7 +787,7 @@ EXPORT_SYMBOL(get_ashmem_file);
 
 void put_ashmem_file(struct file *file)
 {
-	char currtask_name[FIELD_SIZEOF(struct task_struct, comm) + 1];
+	char currtask_name[TASK_COMM_LEN];
 	pr_debug("rdev %d pid %u(%s) file %p(%ld)" " dev id: %d\n",
 		file->f_dentry->d_inode->i_rdev, current->pid,
 		get_task_comm(currtask_name, current), file,
