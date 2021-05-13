@@ -51,7 +51,10 @@ static int sdcardfs_d_revalidate(struct dentry *dentry, unsigned int flags)
 	 * whether the base obbpath has been changed or not
 	 */
 	if (is_obbpath_invalid(dentry)) {
+<<<<<<< HEAD
 		d_drop(dentry);
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		return 0;
 	}
 
@@ -65,7 +68,10 @@ static int sdcardfs_d_revalidate(struct dentry *dentry, unsigned int flags)
 	if ((lower_dentry->d_flags & DCACHE_OP_REVALIDATE)) {
 		err = lower_dentry->d_op->d_revalidate(lower_dentry, flags);
 		if (err == 0) {
+<<<<<<< HEAD
 			d_drop(dentry);
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 			goto out;
 		}
 	}
@@ -73,14 +79,20 @@ static int sdcardfs_d_revalidate(struct dentry *dentry, unsigned int flags)
 	spin_lock(&lower_dentry->d_lock);
 	if (d_unhashed(lower_dentry)) {
 		spin_unlock(&lower_dentry->d_lock);
+<<<<<<< HEAD
 		d_drop(dentry);
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		err = 0;
 		goto out;
 	}
 	spin_unlock(&lower_dentry->d_lock);
 
 	if (parent_lower_dentry != lower_cur_parent_dentry) {
+<<<<<<< HEAD
 		d_drop(dentry);
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		err = 0;
 		goto out;
 	}
@@ -94,7 +106,10 @@ static int sdcardfs_d_revalidate(struct dentry *dentry, unsigned int flags)
 	}
 
 	if (!qstr_case_eq(&dentry->d_name, &lower_dentry->d_name)) {
+<<<<<<< HEAD
 		__d_drop(dentry);
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		err = 0;
 	}
 
@@ -113,7 +128,10 @@ static int sdcardfs_d_revalidate(struct dentry *dentry, unsigned int flags)
 	if (inode) {
 		data = top_data_get(SDCARDFS_I(inode));
 		if (!data || data->abandoned) {
+<<<<<<< HEAD
 			d_drop(dentry);
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 			err = 0;
 		}
 		if (data)
@@ -129,8 +147,21 @@ out:
 	return err;
 }
 
+<<<<<<< HEAD
 static void sdcardfs_d_release(struct dentry *dentry)
 {
+=======
+/* 1 = delete, 0 = cache */
+static int sdcardfs_d_delete(const struct dentry *d)
+{
+	return SDCARDFS_SB(d->d_sb)->options.nocache ? 1 : 0;
+}
+
+static void sdcardfs_d_release(struct dentry *dentry)
+{
+	if (!dentry || !dentry->d_fsdata)
+		return;
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	/* release and reset the lower paths */
 	if (has_graft_path(dentry))
 		sdcardfs_put_reset_orig_path(dentry);
@@ -187,6 +218,10 @@ static void sdcardfs_canonical_path(const struct path *path,
 
 const struct dentry_operations sdcardfs_ci_dops = {
 	.d_revalidate	= sdcardfs_d_revalidate,
+<<<<<<< HEAD
+=======
+	.d_delete	= sdcardfs_d_delete,
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	.d_release	= sdcardfs_d_release,
 	.d_hash	= sdcardfs_hash_ci,
 	.d_compare	= sdcardfs_cmp_ci,

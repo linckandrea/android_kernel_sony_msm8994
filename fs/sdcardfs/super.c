@@ -215,6 +215,12 @@ static struct inode *sdcardfs_alloc_inode(struct super_block *sb)
 
 	i->data = d;
 	kref_init(&d->refcount);
+<<<<<<< HEAD
+=======
+	i->top_data = d;
+	spin_lock_init(&i->top_lock);
+	kref_get(&d->refcount);
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 	i->vfs_inode.i_version = 1;
 	return &i->vfs_inode;
@@ -304,8 +310,17 @@ static int sdcardfs_show_options(struct vfsmount *mnt, struct seq_file *m,
 		seq_printf(m, ",userid=%u", opts->fs_user_id);
 	if (opts->gid_derivation)
 		seq_puts(m, ",derive_gid");
+<<<<<<< HEAD
 	if (opts->reserved_mb != 0)
 		seq_printf(m, ",reserved=%uMB", opts->reserved_mb);
+=======
+	if (opts->default_normal)
+		seq_puts(m, ",default_normal");
+	if (opts->reserved_mb != 0)
+		seq_printf(m, ",reserved=%uMB", opts->reserved_mb);
+	if (opts->nocache)
+		seq_printf(m, ",nocache");
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 	return 0;
 };

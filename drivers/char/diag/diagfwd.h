@@ -30,7 +30,11 @@
 #define GET_BUF_NUM(n)		((n & 0x0000FF))
 
 #define CHK_OVERFLOW(bufStart, start, end, length) \
+<<<<<<< HEAD
 ((((bufStart) <= (start)) && (end - start >= length) && (length > 0)) ? 1 : 0)
+=======
+  ((((bufStart) <= (start)) && ((end) - (start) >= (length)) && ((length) > 0)) ? 1 : 0)
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 int diagfwd_init(void);
 void diagfwd_exit(void);

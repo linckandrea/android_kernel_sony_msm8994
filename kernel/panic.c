@@ -27,7 +27,11 @@
 #include <linux/sysrq.h>
 #include <linux/init.h>
 #include <linux/nmi.h>
+<<<<<<< HEAD
 #include <linux/crash_notes.h>
+=======
+#include <linux/console.h>
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/exception.h>
@@ -146,6 +150,8 @@ void panic(const char *fmt, ...)
 	atomic_notifier_call_chain(&panic_notifier_list, 0, buf);
 
 	bust_spinlocks(0);
+
+	console_flush_on_panic();
 
 	if (!panic_blink)
 		panic_blink = no_blink;

@@ -791,4 +791,7 @@ __SYSCALL(382, sys_ni_syscall)
 __SYSCALL(__NR_seccomp, sys_seccomp)
 #define __NR_getrandom 384
 __SYSCALL(__NR_getrandom, sys_getrandom)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa

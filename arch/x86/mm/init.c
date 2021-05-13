@@ -475,7 +475,10 @@ void __init init_mem_mapping(void)
  * devmem_is_allowed() checks to see if /dev/mem access to a certain address
  * is valid. The argument is a physical page number.
  *
+<<<<<<< HEAD
  *
+=======
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
  * On x86, access has to be given to the first megabyte of RAM because that
  * area traditionally contains BIOS code and data regions used by X, dosemu,
  * and similar apps. Since they map the entire memory range, the whole range
@@ -494,6 +497,7 @@ int devmem_is_allowed(unsigned long pagenr)
 		if (pagenr < 256)
 			return 2;
 
+<<<<<<< HEAD
 		return 0;
 	}
 
@@ -509,6 +513,23 @@ int devmem_is_allowed(unsigned long pagenr)
 		return 0;
 	}
 
+=======
+		return 0;
+	}
+
+	/*
+	 * This must follow RAM test, since System RAM is considered a
+	 * restricted resource under CONFIG_STRICT_IOMEM.
+	 */
+	if (iomem_is_exclusive(pagenr << PAGE_SHIFT)) {
+		/* Low 1MB bypasses iomem restrictions. */
+		if (pagenr < 256)
+			return 1;
+
+		return 0;
+	}
+
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	return 1;
 }
 

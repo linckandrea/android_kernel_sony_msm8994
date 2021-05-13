@@ -131,7 +131,11 @@ enum {
 
 /* struct binder_fd_array_object - object describing an array of fds in a buffer
  * @hdr:		common header structure
+<<<<<<< HEAD
  * @pad:		padding to ensure correct alignment
+=======
+ * @pad:                padding to ensure correct alignment
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
  * @num_fds:		number of file descriptors in the buffer
  * @parent:		index in offset array to buffer holding the fd array
  * @parent_offset:	start offset of fd array in the buffer
@@ -152,7 +156,11 @@ enum {
  */
 struct binder_fd_array_object {
 	struct binder_object_header	hdr;
+<<<<<<< HEAD
 	__u32				pad;
+=======
+	__u32                           pad;
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	binder_size_t			num_fds;
 	binder_size_t			parent;
 	binder_size_t			parent_offset;

@@ -33,6 +33,12 @@ enum {
 	Opt_userid,
 	Opt_reserved_mb,
 	Opt_gid_derivation,
+<<<<<<< HEAD
+=======
+	Opt_default_normal,
+	Opt_nocache,
+	Opt_unshared_obb,
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	Opt_err,
 };
 
@@ -45,7 +51,14 @@ static const match_table_t sdcardfs_tokens = {
 	{Opt_userid, "userid=%d"},
 	{Opt_multiuser, "multiuser"},
 	{Opt_gid_derivation, "derive_gid"},
+<<<<<<< HEAD
 	{Opt_reserved_mb, "reserved_mb=%u"},
+=======
+	{Opt_default_normal, "default_normal"},
+	{Opt_unshared_obb, "unshared_obb"},
+	{Opt_reserved_mb, "reserved_mb=%u"},
+	{Opt_nocache, "nocache"},
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	{Opt_err, NULL}
 };
 
@@ -68,6 +81,11 @@ static int parse_options(struct super_block *sb, char *options, int silent,
 	opts->reserved_mb = 0;
 	/* by default, gid derivation is off */
 	opts->gid_derivation = false;
+<<<<<<< HEAD
+=======
+	opts->default_normal = false;
+	opts->nocache = false;
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 	*debug = 0;
 
@@ -122,6 +140,18 @@ static int parse_options(struct super_block *sb, char *options, int silent,
 		case Opt_gid_derivation:
 			opts->gid_derivation = true;
 			break;
+<<<<<<< HEAD
+=======
+		case Opt_default_normal:
+			opts->default_normal = true;
+			break;
+		case Opt_nocache:
+			opts->nocache = true;
+			break;
+		case Opt_unshared_obb:
+			opts->unshared_obb = true;
+			break;
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		/* unknown option */
 		default:
 			if (!silent)
@@ -175,12 +205,23 @@ int parse_options_remount(struct super_block *sb, char *options, int silent,
 				return 0;
 			vfsopts->mask = option;
 			break;
+<<<<<<< HEAD
+=======
+		case Opt_unshared_obb:
+		case Opt_default_normal:
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		case Opt_multiuser:
 		case Opt_userid:
 		case Opt_fsuid:
 		case Opt_fsgid:
 		case Opt_reserved_mb:
+<<<<<<< HEAD
 			pr_warn("Option \"%s\" can't be changed during remount\n", p);
+=======
+		case Opt_gid_derivation:
+			if (!silent)
+				pr_warn("Option \"%s\" can't be changed during remount\n", p);
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 			break;
 		/* unknown option */
 		default:
@@ -316,7 +357,11 @@ static int sdcardfs_read_super(struct vfsmount *mnt, struct super_block *sb,
 	sb->s_root = d_make_root(inode);
 	if (!sb->s_root) {
 		err = -ENOMEM;
+<<<<<<< HEAD
 		goto out_iput;
+=======
+		goto out_sput;
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 	}
 	d_set_d_op(sb->s_root, &sdcardfs_ci_dops);
 
@@ -341,6 +386,7 @@ static int sdcardfs_read_super(struct vfsmount *mnt, struct super_block *sb,
 	mutex_lock(&sdcardfs_super_list_lock);
 	if (sb_info->options.multiuser) {
 		setup_derived_state(sb->s_root->d_inode, PERM_PRE_ROOT,
+<<<<<<< HEAD
 				sb_info->options.fs_user_id, AID_ROOT,
 				false, SDCARDFS_I(sb->s_root->d_inode)->data);
 		snprintf(sb_info->obbpath_s, PATH_MAX, "%s/obb", dev_name);
@@ -348,6 +394,13 @@ static int sdcardfs_read_super(struct vfsmount *mnt, struct super_block *sb,
 		setup_derived_state(sb->s_root->d_inode, PERM_ROOT,
 				sb_info->options.fs_user_id, AID_ROOT,
 				false, SDCARDFS_I(sb->s_root->d_inode)->data);
+=======
+				sb_info->options.fs_user_id, AID_ROOT);
+		snprintf(sb_info->obbpath_s, PATH_MAX, "%s/obb", dev_name);
+	} else {
+		setup_derived_state(sb->s_root->d_inode, PERM_ROOT,
+				sb_info->options.fs_user_id, AID_ROOT);
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		snprintf(sb_info->obbpath_s, PATH_MAX, "%s/Android/obb", dev_name);
 	}
 	fixup_tmp_permissions(sb->s_root->d_inode);
@@ -363,8 +416,12 @@ static int sdcardfs_read_super(struct vfsmount *mnt, struct super_block *sb,
 	/* no longer needed: free_dentry_private_data(sb->s_root); */
 out_freeroot:
 	dput(sb->s_root);
+<<<<<<< HEAD
 out_iput:
 	iput(inode);
+=======
+	sb->s_root = NULL;
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 out_sput:
 	/* drop refs we took earlier */
 	atomic_dec(&lower_sb->s_active);
@@ -424,7 +481,11 @@ void sdcardfs_kill_sb(struct super_block *sb)
 {
 	struct sdcardfs_sb_info *sbi;
 
+<<<<<<< HEAD
 	if (sb->s_magic == SDCARDFS_SUPER_MAGIC) {
+=======
+	if (sb->s_magic == SDCARDFS_SUPER_MAGIC && sb->s_fs_info) {
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 		sbi = SDCARDFS_SB(sb);
 		mutex_lock(&sdcardfs_super_list_lock);
 		list_del(&sbi->list);

@@ -25,6 +25,7 @@ struct __kernel_sockaddr_storage {
 				/* _SS_MAXSIZE value minus size of ss_family */
 } __attribute__ ((aligned(_K_SS_ALIGNSIZE)));	/* force desired alignment */
 
+<<<<<<< HEAD
 struct sock_sizehint {
 	__u32	order_zero_size;
 		/* max size that can fit into one page in kernel */
@@ -32,5 +33,13 @@ struct sock_sizehint {
 		/* max size that can fit in socket cache */
 };
 
+=======
+
+#ifndef __KERNEL__
+/* This header is exposed as linux/socket.h, so it must provide definition
+ * for sockaddr_storage in place of include/linux/socket.h */
+#define sockaddr_storage __kernel_sockaddr_storage
+#endif
+>>>>>>> 93d0f490de70f5551bcc648b06b7e6d84ce5a5aa
 
 #endif /* _UAPI_LINUX_SOCKET_H */
