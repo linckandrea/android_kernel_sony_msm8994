@@ -1530,8 +1530,8 @@ CONFIG_WIL6210_PLATFORM_MSM=y
 CONFIG_BCMDHD=y
 # CONFIG_BCM4354 is not set
 CONFIG_BCM4356=y
-CONFIG_BCMDHD_FW_PATH="/system/etc/firmware/wlan/bcmdhd/fw_bcmdhd.bin"
-CONFIG_BCMDHD_NVRAM_PATH="/system/etc/firmware/wlan/bcmdhd/bcmdhd.cal"
+CONFIG_BCMDHD_FW_PATH="/system/vendor/firmware/wlan/bcmdhd/fw_bcmdhd.bin"
+CONFIG_BCMDHD_NVRAM_PATH="/system/vendor/firmware/wlan/bcmdhd/bcmdhd.cal"
 # CONFIG_DHD_USE_STATIC_BUF is not set
 # CONFIG_DHD_USE_SCHED_SCAN is not set
 # CONFIG_BCMDHD_SUZURAN is not set
@@ -4184,8 +4184,8 @@ CONFIG_LZO_COMPRESS=y
 CONFIG_LZO_DECOMPRESS=y
 CONFIG_LZ4_COMPRESS=y
 CONFIG_LZ4_DECOMPRESS=y
-# CONFIG_XZ_DEC is not set
-# CONFIG_XZ_DEC_BCJ is not set
+CONFIG_XZ_DEC=y
+CONFIG_XZ_DEC_BCJ=y
 CONFIG_DECOMPRESS_GZIP=y
 CONFIG_DECOMPRESS_BZIP2=y
 CONFIG_DECOMPRESS_LZMA=y
