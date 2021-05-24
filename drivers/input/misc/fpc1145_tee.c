@@ -51,6 +51,8 @@
 #define PWR_ON_STEP_RANGE2 900
 #define NUM_PARAMS_REG_ENABLE_SET 2
 
+#define KEY_FINGERPRINT 0x2ee
+
 static const char * const pctl_names[] = {
 	"fpc1145_spi_active",
 	"fpc1145_reset_reset",
