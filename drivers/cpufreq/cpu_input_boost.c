@@ -409,6 +409,12 @@ static void cpu_ib_input_disconnect(struct input_handle *handle)
 }
 
 static const struct input_device_id cpu_ib_ids[] = {
+	/* touch activity */
+	{
+		.flags = INPUT_DEVICE_ID_MATCH_SWBIT,
+		.evbit = { BIT_MASK(EV_SW) },
+		.swbit = { BIT_MASK(SW_TOUCH_ACTIVITY) },
+	},
 	/* multi-touch touchscreen */
 	{
 		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
