@@ -63,6 +63,8 @@ modules.builtin
 include/config
 include/generated
 arch/*/include/generated
+AnyKernel3/Image.gz-dtb
+AnyKernel3/Pop_kernel-sumire-R-rx-x.zip
 
 # stgit generated dirs
 patches-*
